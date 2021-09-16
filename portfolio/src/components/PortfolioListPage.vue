@@ -1,6 +1,6 @@
 <template>
     <div>
-      <h1>dfsfdfs</h1>
+      <h1>안녕</h1>
     <div>   
         <b-button v-b-modal.modal-xl variant="primary">
             <img src="https://testchn.s3.ap-northeast-2.amazonaws.com/ViewMore.jpg" class="test">
@@ -9,7 +9,7 @@
       
     <modal>
         <b-modal id="modal-xl" size="xl" title="개인 페이지 글쓰기 화면">
-        <!-- 좌측 상단의 설정들 -->
+        <!-- 좌측 상단의 설정들 -->+
             <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
             <div id = "tittle" class="tittle" style="width:150px;height:30px;top:14px;left:50px;"> [ 제목 ] :</div>
             <input type="tittleText" class="tittleText" placeholder="제목을 입력하세요!" style="width:310px;height:30px;top:30px;left:150px;font-size:10px;">
