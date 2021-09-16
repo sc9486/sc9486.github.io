@@ -1,8 +1,8 @@
 //vue.config.js
  module.exports = {
-   chainWebpack: config => {
-     config.module.rules.delete('eslint');
-   },
+   publicPath: 'https://sc9486.github.io/',
+    outputDir: 'dist', 
+   
 
    runtimeCompiler: true,
 

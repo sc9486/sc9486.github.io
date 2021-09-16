@@ -1,6 +1,6 @@
 <template>
     <div>
-      <h1>안녕</h1>
+      <h1>check</h1>
     <div>   
         <b-button v-b-modal.modal-xl variant="primary">
             <img src="https://testchn.s3.ap-northeast-2.amazonaws.com/ViewMore.jpg" class="test">
