@@ -8,5 +8,10 @@
     "sass-loader": "^10.0.0",
     "vue-cli-plugin-vuetify": "~2.4.2",
     "vuetify-loader": "^1.7.0"
-  }
+  },
+  "private": true,
+  "name": "WebPageTeamProject-main",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT"
 }
