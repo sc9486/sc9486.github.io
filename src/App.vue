@@ -1,6 +1,6 @@
 <template>
   <div id="nav">
-    <HelloWord msg="djdj"/>
+    <HelloWord msg="djdjsdad"/>
   </div>
 </template>
 
