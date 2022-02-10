@@ -1,31 +1,26 @@
+# This is a basic workflow to help you get started with Vue s3 deployer action
 
-name: deploy-to-s3-example
+name: Deployment
 
-on: 
+on:
   push:
-    branches: [ gh-pages ]
+    branches: [main]
+  pull_request:
+    branches: [main]
 
-jobs: 
-  build: 
-    runs-on: ubuntu-18.04
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
     steps:
-      - name: git clone
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+
+      - name: Deploying application to Amazon S3
+        uses: lewandy/vue-s3-deployer@main
         with:
-          persist-credentials: false
-
-      - name: npm install
-        run: npm install 
-
-      - name: build
-        run: npm run build
-      
-      - name: deploy
-        env: 
-          AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}'
-          AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
-        run: |
-          aws s3 cp \
-            --recursive \
-            --region ap-northeast-2 \
-            dist s3://portfolioserversungkyul
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+          AWS_BUCKET_NAME: awesome-bucket
+          APP_SOURCE_CODE: ./example
+          BUILD_COMMAND: "npm run deploy"
