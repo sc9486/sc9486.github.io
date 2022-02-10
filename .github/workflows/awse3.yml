@@ -1,26 +1,44 @@
-# This is a basic workflow to help you get started with Vue s3 deployer action
-
-name: Deployment
+# master-deploy-work.yml
+name: master
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    push:
+        branches:
+            - master # master 브랜치에서 push 이벤트가 일어났을 때 실행
+    pull_request:
+        branches:
+            - master
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout source code
+              uses: actions/checkout@master
 
-    steps:
-      - uses: actions/checkout@v2
+            # 실행 속도를 빠르게 하기 위해 설치된 Node 모듈을 캐시하도록 설정합니다.
+            - name: Cache node modules
+              uses: actions/cache@v2
+              with:
+                  path: ~/.npm
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
 
-      - name: Deploying application to Amazon S3
-        uses: lewandy/vue-s3-deployer@main
-        with:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
-          AWS_BUCKET_NAME: portfolioserversungkyul
-          CDN_DISTRIBUTION_ID: ${{ secrets.CDN_DISTRIBUTION_ID }}
-  
+            - name: Install Dependencies
+              run: yarn
+
+            - name: Build
+              run: yarn build
+              env:
+                  CI: ""
+
+            - name: Deploy
+              env:
+                  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+              run: |
+                  aws s3 cp \
+                  --recursive \
+                  --region ap-northeast-2 \
+                  build s3://portfolioserversungkyul
