@@ -1,3 +1,4 @@
+
 name: deploy-to-s3-example
 
 on: 
@@ -10,6 +11,8 @@ jobs:
     steps:
       - name: git clone
         uses: actions/checkout@v2
+        with:
+          persist-credentials: false
 
       - name: npm install
         run: npm install 
